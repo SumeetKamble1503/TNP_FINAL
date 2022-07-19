@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 // import  from "./selectionPopup";
 import Popup from './selectionPopup.js';
@@ -8,52 +8,59 @@ import { Button} from 'react-bootstrap';
 import { Col, Row, Form } from "react-bootstrap";
 import * as XLSX from 'xlsx';
 import axios from 'axios';
+import {getResponse} from '../actions/print';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-
-
-export const PrintResponse = () => {
+const PrintResponse = ({getResponse, print:{responses}}) => {
+  const { id } = useParams();
+  useEffect(() => {
+    getResponse(id);
+  }, []);
+  
   const [buttonPopup, setbuttonPopup] = useState(false);
   React.state ={
     responseArr: []
   };
-  const responses = [
-    {
-        user: "62c3e0ccb7fafa766b40d81b",
-        name: "ABCD",
-        admno: "u19cs026",
-        email: "abcd@gmail.com",
-        phoneno: "9876543210",
-        gender: "FEMALE",
-        dept: "CS",
-        passout: "2023",
-        percentage10: "95",
-        _id: "62cb0adf10d13d0582738b53"
-    },
-    {
-        user: "629f2df345363e2c3d65320f",
-        name: "ABCD",
-        admno: "u15cs24",
-        email: "user@gmail.com",
-        phoneno: "9865321000",
-        gender: "Male",
-        dept: "CSE",
-        passout: "2023",
-        percentage10: "90",
-        _id: "62c275cb8fe2b4a9d424bd96"
-    },
-    {
-        user: "629f2df345363e2c3d653ace",
-        name: "Sumeet Kamble",
-        admno: "u15cs24",
-        email: "user@gmail.com",
-        phoneno: "9865321000",
-        gender: "Male",
-        dept: "CSE",
-        passout: "2023",
-        percentage10: "90",
-        _id: "62c275cb8fe2b4a9d424bd96"
-    },
-    ];
+  // const responses = [
+  //   {
+  //       user: "62c3e0ccb7fafa766b40d81b",
+  //       name: "ABCD",
+  //       admno: "u19cs026",
+  //       email: "abcd@gmail.com",
+  //       phoneno: "9876543210",
+  //       gender: "FEMALE",
+  //       dept: "CS",
+  //       passout: "2023",
+  //       percentage10: "95",
+  //       _id: "62cb0adf10d13d0582738b53"
+  //   },
+  //   {
+  //       user: "629f2df345363e2c3d65320f",
+  //       name: "ABCD",
+  //       admno: "u15cs24",
+  //       email: "user@gmail.com",
+  //       phoneno: "9865321000",
+  //       gender: "Male",
+  //       dept: "CSE",
+  //       passout: "2023",
+  //       percentage10: "90",
+  //       _id: "62c275cb8fe2b4a9d424bd96"
+  //   },
+  //   {
+  //       user: "629f2df345363e2c3d653ace",
+  //       name: "Sumeet Kamble",
+  //       admno: "u15cs24",
+  //       email: "user@gmail.com",
+  //       phoneno: "9865321000",
+  //       gender: "Male",
+  //       dept: "CSE",
+  //       passout: "2023",
+  //       percentage10: "90",
+  //       _id: "62c275cb8fe2b4a9d424bd96"
+  //   },
+  //   ];
 
   
   const  handleOnExport = () => {
@@ -137,3 +144,13 @@ export const PrintResponse = () => {
     </>
   );
 };
+PrintResponse.propTypes = {
+  getResponse: PropTypes.func.isRequired,
+  print:  PropTypes.object.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  print: state.print,
+});
+
+export default connect(mapStateToProps, {getResponse })(PrintResponse);

@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 import { Container, Button } from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 // import {Text} from "react-native";
 const AdminDashboardCard = (props) => {
   const item = props['item'];
@@ -63,7 +64,11 @@ const AdminDashboardCard = (props) => {
                         marginLeft:"10px",
                     }}
                     >
-                    Print
+                      {/* {item._id} */}
+                      <Link to={`/jobs/${item._id}`} >
+                      Print
+                      </Link>
+                    
                     </button>
 
                     <button

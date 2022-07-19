@@ -21,7 +21,7 @@ import setAuthToken from './utils/setAuthToken';
 import { loadUSer } from './actions/auth';
 
 //* --------------------Rendering Purpose only ----------------*/
-import { PrintResponse } from './components/PrintResponse';
+import PrintResponse  from './components/PrintResponse';
 import AdminDashboard from './components/AdminDashboard';
 import AdminAlljobs from './components/AdminAlljobs';
 import StudentDashboard from './components/StudentDashboard';
@@ -83,6 +83,8 @@ function App() {
 
             {/* Print Response (Just for Visuals)  */}
             {/* <Route path='/' element={<PrintResponse/>} /> */}
+
+            <Route path='/jobs/:id' element={<PrintResponse/>} />
 
             {/* --------------------Rendering Purpose only ----------------*/}
 

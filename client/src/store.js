@@ -8,13 +8,14 @@ import auth from './reducers/auth';
 import profile from './reducers/profile';
 import alljobs from './reducers/alljobs';
 import activejob from './reducers/activejob';
-
+import print from './reducers/print.js'
 const reducers = {
   alert,
   auth,
   profile,
   alljobs,
   activejob,
+  print,
 };
 
 const initialState = {};
