@@ -48,17 +48,18 @@ router.delete('/:id', auth, async (req, res) => {
 router.put('/response/:id', auth, async (req, res) => {
   try {
     const job = await ActiveJob.findById(req.params.id);
-    const job2 = await Jobs.findById(req.params.id);
+    //const job2 = await Jobs.findById(req.params.id);
+    const job2 = await Jobs.findOne({ jobid: req.params.id });
     const profile = await Profile.findOne({ user: req.user.id }).populate(
       'user',
       ['admno']
     );
 
-    // (job.responses = []),
+    //(job.responses = []),
     //profile.user.admno
 
     // console.log(profile);
-    // console.log(job);
+    //console.log(job2);
 
     //check if job already responded by user
     // if (
@@ -124,6 +125,7 @@ router.put('/response/:id', auth, async (req, res) => {
     });
 
     await job.save();
+    await job2.save();
     //res.json({ msg: 'Job response added' });
 
     res.json(job.responses);

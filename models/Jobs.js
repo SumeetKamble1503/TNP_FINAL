@@ -1,6 +1,10 @@
 const mongoose = require('mongoose');
 
 const JobsSchema = new mongoose.Schema({
+  jobid: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'activejob',
+  },
   company: {
     type: String,
     required: true,

@@ -36,12 +36,15 @@ router.post(
     }
 
     try {
-      const job = new Jobs(postFields);
       const activejob = new ActiveJob(postFields);
-
-      await job.save();
       await activejob.save();
-      res.json(job);
+
+      res.json(activejob);
+
+      postFields.jobid = activejob._id;
+      const job = new Jobs(postFields);
+      await job.save();
+      // console.log(job._id);
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
@@ -56,6 +59,20 @@ router.get('/', auth, async (req, res) => {
   try {
     const alljobs = await Jobs.find().sort({ date: -1 });
     res.json(alljobs);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send('Server Error');
+  }
+});
+
+//@route   GET api/jobs/response/:id  [jobid]
+//@desc    Get Responses to a Inactive Job
+//@access  Private
+router.get('/response/alljobs/:id', auth, async (req, res) => {
+  try {
+    const job = await Jobs.findOne({ jobid: req.params.id });
+
+    res.json(job.responses);
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server Error');
