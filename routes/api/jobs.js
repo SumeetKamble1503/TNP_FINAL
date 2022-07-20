@@ -70,7 +70,7 @@ router.get('/', auth, async (req, res) => {
 //@access  Private
 router.get('/response/alljobs/:id', auth, async (req, res) => {
   try {
-    const job = await Jobs.findOne({ jobid: req.params.id });
+    const job = await Jobs.findById(req.params.id);
 
     res.json(job.responses);
   } catch (err) {
